@@ -8,6 +8,7 @@ const myTheme = createTheme({
     secondary: {
       main: "#4caf50", // Green
     },
+
     background: {
       default: "#1c1c1c", // Dark gray background
       paper: "#212121", // Slightly lighter gray for cards or surfaces
