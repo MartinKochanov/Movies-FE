@@ -1,6 +1,6 @@
 import { styled } from "@mui/material/styles";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import { Swiper, type SwiperRef } from "swiper/react";
+import { Swiper, type SwiperRef, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 
 import { useRef } from "react";
@@ -77,7 +77,9 @@ export default function HomePage() {
         speed={1500}
       >
         {trendingMovies.map((movie: Movie) => (
-          <MovieSlide key={movie.title} movie={movie} />
+          <SwiperSlide key={movie.title}>
+            <MovieSlide movie={movie} />
+          </SwiperSlide>
         ))}
       </StyledSwiper>
     </div>

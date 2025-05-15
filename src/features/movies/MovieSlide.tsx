@@ -1,5 +1,4 @@
 import { Box, Button, Typography, styled } from "@mui/material";
-import { SwiperSlide } from "swiper/react";
 
 import type { Movie } from "../../types/Movie";
 
@@ -106,7 +105,7 @@ const InfoButton = styled(Button)({
 
 export default function MovieSlide({ movie }: MovieSlideProps) {
   return (
-    <SwiperSlide>
+    <>
       <BackgroundImage image={movie.image} />
       <Overlay />
       <SlideContent>
@@ -124,6 +123,6 @@ export default function MovieSlide({ movie }: MovieSlideProps) {
           </InfoButton>
         </ButtonGroup>
       </SlideContent>
-    </SwiperSlide>
+    </>
   );
 }
