@@ -19,9 +19,17 @@ const StyledSwiper = styled(Swiper)(({ theme }) => ({
   },
   "& .swiper-pagination-bullet": {
     backgroundColor: theme.palette.primary.main,
+    [theme.breakpoints.up("xl")]: {
+      width: "13px",
+      height: "13px",
+    },
   },
   "& .swiper-button-next, & .swiper-button-prev": {
     color: theme.palette.primary.main,
+    padding: "0 5em",
+    "@media (hover: none) and (pointer: coarse)": {
+      display: "none",
+    },
   },
 }));
 
@@ -55,6 +63,8 @@ const trendingMovies = [
 export default function HomePage() {
   const swiperRef = useRef<SwiperRef | null>(null);
 
+  const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
   const handleMouseEnter = () => {
     swiperRef?.current?.swiper.autoplay.stop();
   };
@@ -70,11 +80,12 @@ export default function HomePage() {
         modules={[Navigation, Autoplay, Pagination]}
         navigation
         pagination={{ clickable: true }}
-        autoplay={{ delay: 5000, disableOnInteraction: false }}
+        autoplay={{ delay: 5000 }}
+        loop={!isTouchDevice}
+        speed={1500}
         spaceBetween={0}
         slidesPerView={1}
-        loop
-        speed={1500}
+        cssMode={isTouchDevice}
       >
         {trendingMovies.map((movie: Movie) => (
           <SwiperSlide key={movie.title}>
