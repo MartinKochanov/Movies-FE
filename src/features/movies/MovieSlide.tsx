@@ -104,7 +104,7 @@ export default function MovieSlide({
   movie: { title: string; description: string; genre: string; image: string; rating: number };
 }) {
   return (
-    <SwiperSlide key={movie.title}>
+    <SwiperSlide>
       <BackgroundImage image={movie.image} />
       <Overlay />
       <SlideContent>
