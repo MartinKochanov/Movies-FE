@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { Link } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 
@@ -38,7 +39,7 @@ const MobileMenuButton = styled(IconButton)(({ theme }) => ({
   },
 }));
 
-const DesktopButtons = styled("div")(({ theme }) => ({
+const DesktopButtons = styled(List)(({ theme }) => ({
   display: "flex",
   gap: theme.spacing(2),
   [theme.breakpoints.down("sm")]: {
@@ -74,7 +75,9 @@ export default function NavigationBar() {
         <Toolbar>
           <StyledTitle variant="h6">🎬 MovieTime</StyledTitle>
           <DesktopButtons>
-            <Button color="inherit">Home</Button>
+            <Button component={Link} to={"/"} color="inherit">
+              Home
+            </Button>
             <Button color="inherit">Movies</Button>
             <Button color="inherit">TV Shows</Button>
           </DesktopButtons>
@@ -87,7 +90,7 @@ export default function NavigationBar() {
       {/* Mobile Drawer */}
       <Drawer anchor="top" open={drawerOpen} onClose={toggleDrawer}>
         <List>
-          <ListItemButton>
+          <ListItemButton component={Link} to={"/"} onClick={toggleDrawer}>
             <ListItemText primary="Home" />
           </ListItemButton>
           <ListItemButton>
