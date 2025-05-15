@@ -5,6 +5,7 @@ import "swiper/swiper-bundle.css";
 
 import { useRef } from "react";
 
+import type { Movie } from "../../types/Movie";
 import MovieSlide from "./MovieSlide";
 
 // Styled Swiper wrapper
@@ -75,7 +76,9 @@ export default function HomePage() {
         loop
         speed={1500}
       >
-        {trendingMovies.map((movie) => MovieSlide({ movie }))}
+        {trendingMovies.map((movie: Movie) => (
+          <MovieSlide key={movie.title} movie={movie} />
+        ))}
       </StyledSwiper>
     </div>
   );

@@ -1,6 +1,12 @@
 import { Box, Button, Typography, styled } from "@mui/material";
 import { SwiperSlide } from "swiper/react";
 
+import type { Movie } from "../../types/Movie";
+
+type MovieSlideProps = {
+  movie: Movie;
+};
+
 const BackgroundImage = styled(Box)<{ image: string }>(({ image }) => ({
   position: "absolute",
   top: 0,
@@ -98,11 +104,7 @@ const InfoButton = styled(Button)({
   },
 });
 
-export default function MovieSlide({
-  movie,
-}: {
-  movie: { title: string; description: string; genre: string; image: string; rating: number };
-}) {
+export default function MovieSlide({ movie }: MovieSlideProps) {
   return (
     <SwiperSlide>
       <BackgroundImage image={movie.image} />
