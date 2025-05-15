@@ -8,8 +8,8 @@ const BackgroundImage = styled(Box)<{ image: string }>(({ image }) => ({
   width: "100%",
   height: "100%",
   backgroundImage: `url(${image})`,
+  backgroundPosition: "top",
   backgroundSize: "cover",
-  backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
   zIndex: -1,
 }));
@@ -22,6 +22,7 @@ const Overlay = styled(Box)({
   height: "100%",
   background: "linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.4))",
   zIndex: 1,
+  pointerEvents: "none",
 });
 
 const SlideContent = styled(Box)(({ theme }) => ({
@@ -34,8 +35,6 @@ const SlideContent = styled(Box)(({ theme }) => ({
   justifyContent: "center",
   textAlign: "left",
   color: "#fff",
-  paddingLeft: theme.spacing(4),
-  paddingRight: theme.spacing(4),
   [theme.breakpoints.up("md")]: {
     paddingLeft: theme.spacing(12),
     paddingRight: theme.spacing(8),
