@@ -1,4 +1,15 @@
-import { AppBar, Button, Toolbar, Typography } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import {
+  AppBar,
+  Button,
+  Drawer,
+  IconButton,
+  List,
+  ListItemButton,
+  ListItemText,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 import { useEffect, useState } from "react";
@@ -20,8 +31,24 @@ const StyledTitle = styled(Typography)(({ theme }) => ({
   color: theme.palette.common.white,
 }));
 
+const MobileMenuButton = styled(IconButton)(({ theme }) => ({
+  display: "none",
+  [theme.breakpoints.down("sm")]: {
+    display: "block",
+  },
+}));
+
+const DesktopButtons = styled("div")(({ theme }) => ({
+  display: "flex",
+  gap: theme.spacing(2),
+  [theme.breakpoints.down("sm")]: {
+    display: "none",
+  },
+}));
+
 export default function NavigationBar() {
   const [opacity, setOpacity] = useState(0);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,14 +64,40 @@ export default function NavigationBar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const toggleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
+  };
+
   return (
-    <StyledAppBar opacity={opacity}>
-      <Toolbar>
-        <StyledTitle variant="h6">🎬 MovieTime</StyledTitle>
-        <Button color="inherit">Home</Button>
-        <Button color="inherit">Movies</Button>
-        <Button color="inherit">TV Shows</Button>
-      </Toolbar>
-    </StyledAppBar>
+    <>
+      <StyledAppBar opacity={opacity}>
+        <Toolbar>
+          <StyledTitle variant="h6">🎬 MovieTime</StyledTitle>
+          <DesktopButtons>
+            <Button color="inherit">Home</Button>
+            <Button color="inherit">Movies</Button>
+            <Button color="inherit">TV Shows</Button>
+          </DesktopButtons>
+          <MobileMenuButton color="inherit" edge="end" onClick={toggleDrawer}>
+            <MenuIcon />
+          </MobileMenuButton>
+        </Toolbar>
+      </StyledAppBar>
+
+      {/* Mobile Drawer */}
+      <Drawer anchor="top" open={drawerOpen} onClose={toggleDrawer}>
+        <List>
+          <ListItemButton>
+            <ListItemText primary="Home" />
+          </ListItemButton>
+          <ListItemButton>
+            <ListItemText primary="Movies" />
+          </ListItemButton>
+          <ListItemButton>
+            <ListItemText primary="TV Shows" />
+          </ListItemButton>
+        </List>
+      </Drawer>
+    </>
   );
 }
