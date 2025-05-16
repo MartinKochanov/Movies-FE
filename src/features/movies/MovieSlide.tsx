@@ -1,3 +1,4 @@
+import { FiberManualRecord } from "@mui/icons-material";
 import { Box, Button, Typography, styled } from "@mui/material";
 
 import type { Movie } from "../../types/Movie";
@@ -103,6 +104,18 @@ const InfoButton = styled(Button)({
   },
 });
 
+const GenreContainer = styled("span")({
+  display: "inline-flex",
+  alignItems: "center",
+  marginRight: "8px",
+});
+
+const GenreDot = styled(FiberManualRecord)({
+  fontSize: "0.8rem",
+  margin: "0 8px",
+  color: "white",
+});
+
 export default function MovieSlide({ movie }: MovieSlideProps) {
   return (
     <>
@@ -110,13 +123,18 @@ export default function MovieSlide({ movie }: MovieSlideProps) {
       <Overlay />
       <SlideContent>
         <MovieTitle variant="h2">{movie.title}</MovieTitle>
-        <MovieDescription variant="subtitle1">{movie.description}</MovieDescription>
+        <MovieDescription variant="subtitle1">{movie.tagline}</MovieDescription>
         <MovieDetails variant="body1">
-          {movie.genre} • Rating: ⭐ {movie.rating}
+          {movie.genre.map((g, index) => (
+            <GenreContainer key={index}>
+              {index < movie.genre.length && <GenreDot />}
+              {g}
+            </GenreContainer>
+          ))}
         </MovieDetails>
         <ButtonGroup>
           <WatchButton variant="contained" color="primary" size="large">
-            ▶ Watch Now
+            ▶ Watch Trailer
           </WatchButton>
           <InfoButton variant="outlined" color="inherit">
             ⓘ More Info
