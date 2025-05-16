@@ -119,15 +119,15 @@ const GenreDot = styled(FiberManualRecord)({
 export default function MovieSlide({ movie }: MovieSlideProps) {
   return (
     <>
-      <BackgroundImage image={movie.image} />
+      <BackgroundImage image={movie.imageUrl} />
       <Overlay />
       <SlideContent>
         <MovieTitle variant="h2">{movie.title}</MovieTitle>
         <MovieDescription variant="subtitle1">{movie.tagline}</MovieDescription>
         <MovieDetails variant="body1">
-          {movie.genre.map((g, index) => (
+          {movie.genres.map((g, index) => (
             <GenreContainer key={index}>
-              {index < movie.genre.length && <GenreDot />}
+              {index < movie.genres.length && <GenreDot />}
               {g}
             </GenreContainer>
           ))}
