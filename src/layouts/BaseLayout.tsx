@@ -2,6 +2,7 @@ import { Box, CssBaseline } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Outlet } from "react-router-dom";
 
+import Footer from "../features/shared/components/Footer";
 import NavigationBar from "../features/shared/components/NavigationBar";
 
 // Styled components
@@ -19,6 +20,7 @@ const BaseLayout = () => {
       <StyledMain>
         <Outlet />
       </StyledMain>
+      <Footer />
     </>
   );
 };
