@@ -1,5 +1,5 @@
 import { FiberManualRecord } from "@mui/icons-material";
-import { Box, Button, Typography, styled } from "@mui/material";
+import { Box, Button, Typography, alpha, styled } from "@mui/material";
 
 import type { Movie } from "../../types/Movie";
 
@@ -26,7 +26,7 @@ const Overlay = styled(Box)({
   left: 0,
   width: "100%",
   height: "100%",
-  background: "linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.4))",
+  background: "rgba(0, 0, 0, 0.65)",
   zIndex: 1,
   pointerEvents: "none",
 });
@@ -84,12 +84,12 @@ const ButtonGroup = styled(Box)({
   gap: 16,
 });
 
-const WatchButton = styled(Button)(() => ({
+const WatchButton = styled(Button)(({ theme }) => ({
   borderRadius: "30px",
   fontWeight: "bold",
   textTransform: "uppercase",
   padding: "12px 32px",
-  boxShadow: "0 5px 15px rgba(239,108,0,0.5)",
+  boxShadow: `0 5px 15px ${alpha(theme.palette.primary.main, 0.5)}`,
 }));
 
 const InfoButton = styled(Button)({

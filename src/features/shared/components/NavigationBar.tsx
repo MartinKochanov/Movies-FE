@@ -1,3 +1,4 @@
+import { Brightness2, Brightness4 } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
@@ -15,6 +16,9 @@ import { Link } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 
+import { useTheme } from "../../../context/ThemeContext";
+import { Theme } from "../../../types/Shared";
+
 const StyledAppBar = styled(AppBar, {
   shouldForwardProp: (prop) => prop !== "opacity",
 })<{ opacity: number }>(({ opacity }) => ({
@@ -25,6 +29,16 @@ const StyledAppBar = styled(AppBar, {
   top: 0,
   width: "100%",
   zIndex: 1000,
+  "--Paper-overlay": "unset",
+}));
+
+const ToggleButton = styled(IconButton)(() => ({
+  color: "white",
+  transition: "all 0.3s ease",
+}));
+
+const MobileToggleButton = styled(IconButton)(({ theme }) => ({
+  color: theme.palette.mode === Theme.LIGHT ? "black" : "white",
 }));
 
 const StyledTitle = styled(Typography)(({ theme }) => ({
@@ -50,6 +64,8 @@ const DesktopButtons = styled(List)(({ theme }) => ({
 export default function NavigationBar() {
   const [opacity, setOpacity] = useState(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const { toggleTheme, theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,6 +96,9 @@ export default function NavigationBar() {
             </Button>
             <Button color="inherit">Movies</Button>
             <Button color="inherit">TV Shows</Button>
+            <ToggleButton onClick={toggleTheme}>
+              {theme === "light" ? <Brightness4 color="inherit" /> : <Brightness2 />}
+            </ToggleButton>
           </DesktopButtons>
           <MobileMenuButton color="inherit" edge="end" onClick={toggleDrawer}>
             <MenuIcon />
@@ -90,6 +109,9 @@ export default function NavigationBar() {
       {/* Mobile Drawer */}
       <Drawer anchor="top" open={drawerOpen} onClose={toggleDrawer}>
         <List>
+          <MobileToggleButton onClick={toggleTheme}>
+            {theme === Theme.LIGHT ? <Brightness4 /> : <Brightness2 />}
+          </MobileToggleButton>
           <ListItemButton component={Link} to={"/"} onClick={toggleDrawer}>
             <ListItemText primary="Home" />
           </ListItemButton>

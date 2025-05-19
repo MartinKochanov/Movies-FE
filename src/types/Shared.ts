@@ -1,5 +1,4 @@
 // Page
-
 export type Page<T> = {
   totalPages: number;
   totalElements: number;
@@ -45,4 +44,9 @@ export interface NotFoundErrorBody {
   status: number;
   detail: string;
   instance: string;
+}
+
+export enum Theme {
+  LIGHT = "light",
+  DARK = "dark",
 }

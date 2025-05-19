@@ -1,15 +1,14 @@
-import { ThemeProvider } from "@emotion/react";
 import { RouterProvider } from "react-router-dom";
 
 import "./App.css";
+import { CustomThemeProvider } from "./context/ThemeContext";
 import { appRouter } from "./routes/Router";
-import myTheme from "./theme/MyTheme";
 
 function App() {
   return (
-    <ThemeProvider theme={myTheme}>
-      <RouterProvider router={appRouter} />
-    </ThemeProvider>
+    <CustomThemeProvider>
+      <RouterProvider router={appRouter} />;
+    </CustomThemeProvider>
   );
 }
 

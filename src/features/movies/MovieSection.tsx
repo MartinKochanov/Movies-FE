@@ -1,4 +1,6 @@
-import { Box, Grid, styled } from "@mui/material";
+import { Box, Grid, Pagination, styled } from "@mui/material";
+
+import { useState } from "react";
 
 import { useMoviesQuery } from "../../hooks/movies/useMoviesQuery";
 import MovieCard from "./MovieCard";
@@ -10,27 +12,29 @@ const MovieGrid = styled(Grid)(({ theme }) => ({
   gap: theme.spacing(2),
 }));
 
+const PaginationContainer = styled(Box)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  marginTop: theme.spacing(4),
+}));
+
 export default function MovieSection() {
-  const {
-    data: movies,
-    isLoading,
-    isError,
-  } = useMoviesQuery(0, 10, {
-    sortField: "releaseYear",
-    sortOrder: "desc",
+  const [page, setPage] = useState(1);
+  const { data: movies } = useMoviesQuery(page - 1, 10, {
+    sortField: "title",
+    sortOrder: "asc",
   });
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    return <div>Failed to load movies</div>;
-  }
+  const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
 
   return (
     <Box>
       <MovieGrid container>{movies?.content.map((movie) => <MovieCard key={movie.id} movie={movie} />)}</MovieGrid>
+      <PaginationContainer>
+        <Pagination count={movies?.totalPages || 0} page={page} onChange={handlePageChange} color="primary" />
+      </PaginationContainer>
     </Box>
   );
 }
