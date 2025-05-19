@@ -1,7 +1,7 @@
 import { Box, Link, Typography, styled } from "@mui/material";
 
 const FooterContainer = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
+  backgroundColor: theme.palette.background.default,
   color: theme.palette.text.secondary,
   padding: theme.spacing(4),
   textAlign: "center",
