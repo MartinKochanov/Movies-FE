@@ -128,7 +128,7 @@ export default function MovieSlide({ movie }: MovieSlideProps) {
           {movie.genres.map((g, index) => (
             <GenreContainer key={index}>
               {index < movie.genres.length && <GenreDot />}
-              {g}
+              {g.replace(/_/g, "-")}
             </GenreContainer>
           ))}
         </MovieDetails>

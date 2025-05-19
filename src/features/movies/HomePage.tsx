@@ -8,6 +8,7 @@ import { useRef } from "react";
 import { useMoviesQuery } from "../../hooks/movies/useMoviesQuery";
 import { type Movie } from "../../types/Movie";
 import Spinner from "../shared/components/Spinner";
+import MovieSection from "./MovieSection";
 import MovieSlide from "./MovieSlide";
 
 // Styled Swiper wrapper
@@ -76,6 +77,8 @@ export default function HomePage() {
       ) : (
         <Spinner />
       )}
+
+      <MovieSection />
     </>
   );
 }

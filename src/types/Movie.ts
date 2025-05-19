@@ -1,5 +1,5 @@
 export type Movie = {
-  id: String;
+  id: string;
   title: string;
   tagline: string;
   duration: number;
@@ -24,7 +24,7 @@ export enum Genre {
   MUSIC = "Music",
   MYSTERY = "Mystery",
   ROMANCE = "Romance",
-  SCI_FI = "Sci_Fi",
+  SCI_FI = "Sci-Fi",
   THRILLER = "Thriller",
   WAR = "War",
   WESTERN = "Western",
