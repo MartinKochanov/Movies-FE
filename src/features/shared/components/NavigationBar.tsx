@@ -95,7 +95,7 @@ export default function NavigationBar() {
               Home
             </Button>
             <Button color="inherit">Movies</Button>
-            <Button color="inherit">TV Shows</Button>
+            <Button color="inherit">Series</Button>
             <ToggleButton onClick={toggleTheme}>
               {theme === "light" ? <Brightness4 color="inherit" /> : <Brightness2 />}
             </ToggleButton>
@@ -119,7 +119,7 @@ export default function NavigationBar() {
             <ListItemText primary="Movies" />
           </ListItemButton>
           <ListItemButton>
-            <ListItemText primary="TV Shows" />
+            <ListItemText primary="Series" />
           </ListItemButton>
         </List>
       </Drawer>

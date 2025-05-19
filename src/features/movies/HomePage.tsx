@@ -7,6 +7,7 @@ import { useRef } from "react";
 
 import { useMoviesQuery } from "../../hooks/movies/useMoviesQuery";
 import { type Movie } from "../../types/Movie";
+import SeriesSection from "../series/SeriesSection";
 import Spinner from "../shared/components/Spinner";
 import MovieSection from "./MovieSection";
 import MovieSlide from "./MovieSlide";
@@ -79,6 +80,7 @@ export default function HomePage() {
       )}
 
       <MovieSection />
+      <SeriesSection />
     </>
   );
 }

@@ -1,9 +1,9 @@
 import { Box, Button, Grid, Typography, styled } from "@mui/material";
 
 import { useMoviesQuery } from "../../hooks/movies/useMoviesQuery";
-import MovieCard from "./MovieCard";
+import MovieCard from "../movies/MovieCard";
 
-const MovieGrid = styled(Grid)(({ theme }) => ({
+const SeriesGrid = styled(Grid)(({ theme }) => ({
   padding: theme.spacing(4),
   display: "flex",
   justifyContent: "center",
@@ -24,7 +24,7 @@ const CenteredText = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(4),
 }));
 
-export default function MovieSection() {
+export default function SeriesSection() {
   const { data: movies } = useMoviesQuery(0, 10, {
     sortField: "title",
     sortOrder: "asc",
@@ -33,9 +33,9 @@ export default function MovieSection() {
   return (
     <Box>
       <CenteredText>
-        <Typography variant="h3">Movies</Typography>
+        <Typography variant="h3">Series</Typography>
       </CenteredText>
-      <MovieGrid container>{movies?.content.map((movie) => <MovieCard key={movie.id} movie={movie} />)}</MovieGrid>
+      <SeriesGrid container>{movies?.content.map((movie) => <MovieCard key={movie.id} movie={movie} />)}</SeriesGrid>
       <ButtonContainer>
         <Button variant="outlined" color="primary" size="large">
           View More
