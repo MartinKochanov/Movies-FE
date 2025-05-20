@@ -8,6 +8,7 @@ const MovieGrid = styled(Grid)(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
   gap: theme.spacing(2),
+  borderBottom: `1px solid ${theme.palette.primary.main}`,
 }));
 
 const ButtonContainer = styled(Box)(({ theme }) => ({
@@ -35,12 +36,14 @@ export default function MovieSection() {
       <CenteredText>
         <Typography variant="h3">Movies</Typography>
       </CenteredText>
-      <MovieGrid container>{movies?.content.map((movie) => <MovieCard key={movie.id} movie={movie} />)}</MovieGrid>
-      <ButtonContainer>
-        <Button variant="outlined" color="primary" size="large">
-          View More
-        </Button>
-      </ButtonContainer>
+      <MovieGrid container>
+        {movies?.content.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+        <ButtonContainer>
+          <Button variant="outlined" color="primary" size="large">
+            View More
+          </Button>
+        </ButtonContainer>
+      </MovieGrid>
     </Box>
   );
 }

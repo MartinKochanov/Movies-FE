@@ -9,7 +9,7 @@ type MovieCardProps = {
 const StyledCard = styled(Card)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
   color: theme.palette.text.primary,
-  maxWidth: 345,
+  maxWidth: 300,
   margin: theme.spacing(2),
   boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
   transform: "scale(1)",
