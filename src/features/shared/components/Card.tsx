@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, CardMedia, Typography, styled } from "@mui/material";
 
-import type { Movie } from "../../types/Movie";
+import type { Movie } from "../../../types/Movie";
 
 type MovieCardProps = {
   movie: Movie;
