@@ -12,7 +12,13 @@ type ThemeContextType = {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const CustomThemeProvider = ({ children }: PropsWithChildren) => {
-  const [theme, setTheme] = useState<Theme>(() => Theme.DARK);
+  const [theme, setTheme] = useState<Theme>(() => {
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme) {
+      return storedTheme === Theme.DARK ? Theme.DARK : Theme.LIGHT;
+    }
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? Theme.DARK : Theme.LIGHT;
+  });
 
   const myTheme = createTheme({
     palette: {
@@ -57,12 +63,10 @@ const CustomThemeProvider = ({ children }: PropsWithChildren) => {
   });
 
   const toggleTheme = () => {
-    console.log("is Marto in");
-
+    const newThme = theme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT;
     if (theme === Theme.LIGHT) setTheme(Theme.DARK);
     else setTheme(Theme.LIGHT);
-
-    console.log(theme);
+    localStorage.setItem("theme", newThme);
   };
 
   const themeValues = {
