@@ -5,7 +5,9 @@ export type Movie = {
   duration: number;
   releaseYear: number;
   genres: Genre[];
+  series: boolean;
   imageUrl: string;
+  trailerUrl: string;
 };
 
 export enum Genre {

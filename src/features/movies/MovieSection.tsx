@@ -8,6 +8,7 @@ export default function MovieSection() {
   const { data: movies } = useMoviesQuery(0, 10, {
     sortField: "title",
     sortOrder: "asc",
+    isSeries: false,
   });
 
   return (

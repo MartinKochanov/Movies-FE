@@ -46,18 +46,18 @@ const StyledTitle = styled(Typography)(({ theme }) => ({
   color: theme.palette.common.white,
 }));
 
-const MobileMenuButton = styled(IconButton)(({ theme }) => ({
+const MobileMenuButton = styled(IconButton)(() => ({
   display: "none",
-  [theme.breakpoints.down("sm")]: {
-    display: "block",
+  "@media (hover: none) and (pointer: coarse)": {
+    display: "block", // Show on touch devices
   },
 }));
 
 const DesktopButtons = styled(List)(({ theme }) => ({
   display: "flex",
   gap: theme.spacing(2),
-  [theme.breakpoints.down("sm")]: {
-    display: "none",
+  "@media (hover: none) and (pointer: coarse)": {
+    display: "none", // Hide on touch devices
   },
 }));
 

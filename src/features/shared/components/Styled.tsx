@@ -1,4 +1,4 @@
-import { Box, Grid, styled } from "@mui/material";
+import { Box, Chip, Grid, styled } from "@mui/material";
 
 export const ButtonContainer = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -21,4 +21,12 @@ export const CenteredText = styled(Box)(({ theme }) => ({
   alignItems: "center",
   textAlign: "center",
   marginTop: theme.spacing(4),
+}));
+
+export const SeriesChip = styled(Chip)(({ theme }) => ({
+  backgroundColor: theme.palette.secondary.main,
+  color: theme.palette.common.white,
+  fontWeight: "bold",
+  textTransform: "uppercase",
+  marginBottom: theme.spacing(2),
 }));

@@ -52,6 +52,14 @@ export default function HomePage() {
     swiperRef?.current?.swiper.autoplay.start();
   };
 
+  const handleTrailerPlay = (isPlaying: boolean) => {
+    if (isPlaying) {
+      swiperRef?.current?.swiper.autoplay.stop(); // Stop autoplay when trailer starts
+    } else {
+      swiperRef?.current?.swiper.autoplay.start(); // Resume autoplay when trailer stops
+    }
+  };
+
   return (
     <>
       {isFetched ? (
@@ -70,7 +78,7 @@ export default function HomePage() {
           >
             {movies?.content.map((movie: Movie) => (
               <SwiperSlide key={movie.title}>
-                <MovieSlide movie={movie} />
+                <MovieSlide movie={movie} onTrailerPlay={handleTrailerPlay} />
               </SwiperSlide>
             ))}
           </StyledSwiper>

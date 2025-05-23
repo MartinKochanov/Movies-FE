@@ -1,10 +1,15 @@
 import { FiberManualRecord } from "@mui/icons-material";
 import { Box, Button, Typography, alpha, styled } from "@mui/material";
 
+import { useState } from "react";
+
 import type { Movie } from "../../types/Movie";
+import { SeriesChip } from "../shared/components/Styled";
+import TrailerModal from "../shared/components/TrailerModal";
 
 type MovieSlideProps = {
   movie: Movie;
+  onTrailerPlay?: (isPlaying: boolean) => void;
 };
 
 const BackgroundImage = styled(Box)<{ image: string }>(({ image }) => ({
@@ -116,12 +121,17 @@ const GenreDot = styled(FiberManualRecord)({
   color: "white",
 });
 
-export default function MovieSlide({ movie }: MovieSlideProps) {
+export default function MovieSlide({ movie, onTrailerPlay }: MovieSlideProps) {
+  const [open, setOpen] = useState(false);
+
+  const toggleModal = () => setOpen(!open);
+
   return (
     <>
       <BackgroundImage image={movie.imageUrl} />
       <Overlay />
       <SlideContent>
+        {movie.series && <SeriesChip label="Series" />}
         <MovieTitle variant="h2">{movie.title}</MovieTitle>
         <MovieDescription variant="subtitle1">{movie.tagline}</MovieDescription>
         <MovieDetails variant="body1">
@@ -133,7 +143,7 @@ export default function MovieSlide({ movie }: MovieSlideProps) {
           ))}
         </MovieDetails>
         <ButtonGroup>
-          <WatchButton variant="contained" color="primary" size="large">
+          <WatchButton variant="contained" color="primary" size="large" onClick={toggleModal}>
             ▶ Watch Trailer
           </WatchButton>
           <InfoButton variant="outlined" color="inherit">
@@ -141,6 +151,13 @@ export default function MovieSlide({ movie }: MovieSlideProps) {
           </InfoButton>
         </ButtonGroup>
       </SlideContent>
+
+      <TrailerModal
+        open={open}
+        onClose={toggleModal}
+        trailerUrl={movie.trailerUrl}
+        onPlay={(isPlaying) => onTrailerPlay?.(isPlaying)}
+      />
     </>
   );
 }
