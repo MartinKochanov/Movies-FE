@@ -59,7 +59,7 @@ const CloseButton = styled(IconButton)(({ theme }) => ({
   position: "absolute",
   top: theme.spacing(1),
   right: theme.spacing(1),
-  color: theme.palette.text.primary,
+  color: theme.palette.primary.main,
   zIndex: 10,
 }));
 
@@ -183,7 +183,7 @@ export default function TrailerModal({ open, onClose, trailerUrl }: TrailerModal
           {!isPlaying && (
             <Overlay onClick={togglePlayPause}>
               <PlayButton onClick={togglePlayPause}>
-                <PlayArrowIcon fontSize="large" />
+                <PlayArrowIcon onClick={togglePlayPause} fontSize="large" />
               </PlayButton>
             </Overlay>
           )}
