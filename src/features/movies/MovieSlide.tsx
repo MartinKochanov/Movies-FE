@@ -9,7 +9,6 @@ import TrailerModal from "../shared/components/TrailerModal";
 
 type MovieSlideProps = {
   movie: Movie;
-  onTrailerPlay?: (isPlaying: boolean) => void;
 };
 
 const BackgroundImage = styled(Box)<{ image: string }>(({ image }) => ({
@@ -121,7 +120,7 @@ const GenreDot = styled(FiberManualRecord)({
   color: "white",
 });
 
-export default function MovieSlide({ movie, onTrailerPlay }: MovieSlideProps) {
+export default function MovieSlide({ movie }: MovieSlideProps) {
   const [open, setOpen] = useState(false);
 
   const toggleModal = () => setOpen(!open);
@@ -152,12 +151,7 @@ export default function MovieSlide({ movie, onTrailerPlay }: MovieSlideProps) {
         </ButtonGroup>
       </SlideContent>
 
-      <TrailerModal
-        open={open}
-        onClose={toggleModal}
-        trailerUrl={movie.trailerUrl}
-        onPlay={(isPlaying) => onTrailerPlay?.(isPlaying)}
-      />
+      <TrailerModal open={open} onClose={toggleModal} trailerUrl={movie.trailerUrl} />
     </>
   );
 }
