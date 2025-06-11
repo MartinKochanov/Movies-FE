@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import HomePage from "../features/movies/HomePage";
+import MoviesPage from "../features/movies/MoviesPage";
 import BaseLayout from "../layouts/BaseLayout";
 
 export const appRouter = createBrowserRouter([
@@ -11,6 +12,10 @@ export const appRouter = createBrowserRouter([
         path: "/",
         element: <HomePage />,
         index: true,
+      },
+      {
+        path: "/movies",
+        element: <MoviesPage />,
       },
     ],
   },

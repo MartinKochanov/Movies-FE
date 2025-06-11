@@ -1,4 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import { useMoviesQuery } from "../../hooks/movies/useMoviesQuery";
 import MovieCard from "../shared/components/Card";
@@ -18,7 +19,7 @@ export default function MovieSection() {
       </CenteredText>
       <CardGrid container>{movies?.content.map((movie) => <MovieCard key={movie.id} movie={movie} />)}</CardGrid>
       <ButtonContainer>
-        <Button variant="outlined" color="primary" size="large">
+        <Button component={Link} to={"/movies"} variant="outlined" color="primary" size="large">
           View More
         </Button>
       </ButtonContainer>

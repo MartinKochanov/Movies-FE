@@ -43,7 +43,7 @@ const MobileToggleButton = styled(IconButton)(({ theme }) => ({
 
 const StyledTitle = styled(Typography)(({ theme }) => ({
   flexGrow: 1,
-  color: theme.palette.common.white,
+  color: theme.palette.primary.main,
 }));
 
 const MobileMenuButton = styled(IconButton)(() => ({
@@ -91,16 +91,18 @@ export default function NavigationBar() {
         <Toolbar>
           <StyledTitle variant="h6">🎬 MovieTime</StyledTitle>
           <DesktopButtons>
-            <Button component={Link} to={"/"} color="inherit">
+            <Button component={Link} to={"/"} color="primary">
               Home
             </Button>
-            <Button color="inherit">Movies</Button>
-            <Button color="inherit">Series</Button>
+            <Button component={Link} to={"/movies"} color="primary">
+              Movies
+            </Button>
+            <Button color="primary">Series</Button>
             <ToggleButton onClick={toggleTheme}>
-              {theme === "light" ? <Brightness4 color="inherit" /> : <Brightness2 />}
+              {theme === "light" ? <Brightness4 color="primary" /> : <Brightness2 color="primary" />}
             </ToggleButton>
           </DesktopButtons>
-          <MobileMenuButton color="inherit" edge="end" onClick={toggleDrawer}>
+          <MobileMenuButton color="primary" edge="end" onClick={toggleDrawer}>
             <MenuIcon />
           </MobileMenuButton>
         </Toolbar>
@@ -115,7 +117,7 @@ export default function NavigationBar() {
           <ListItemButton component={Link} to={"/"} onClick={toggleDrawer}>
             <ListItemText primary="Home" />
           </ListItemButton>
-          <ListItemButton>
+          <ListItemButton component={Link} to={"/movies"}>
             <ListItemText primary="Movies" />
           </ListItemButton>
           <ListItemButton>

@@ -1,4 +1,4 @@
-import { ThemeProvider, createTheme } from "@mui/material";
+import { GlobalStyles, ThemeProvider, createTheme } from "@mui/material";
 
 import { type PropsWithChildren, createContext, useContext, useState } from "react";
 
@@ -75,7 +75,29 @@ const CustomThemeProvider = ({ children }: PropsWithChildren) => {
   };
   return (
     <ThemeContext.Provider value={themeValues}>
-      <ThemeProvider theme={myTheme}>{children}</ThemeProvider>
+      <ThemeProvider theme={myTheme}>
+        {children}
+        <GlobalStyles
+          styles={(theme) => ({
+            "*::-webkit-scrollbar": {
+              width: 8,
+              backgroundColor: theme.palette.background.paper,
+              borderRadius: 8,
+            },
+            "*::-webkit-scrollbar-thumb": {
+              backgroundColor: theme.palette.primary.main,
+              borderRadius: 8,
+            },
+            "*::-webkit-scrollbar-thumb:hover": {
+              backgroundColor: theme.palette.primary.main,
+            },
+            "*": {
+              scrollbarWidth: "thin",
+              scrollbarColor: `${theme.palette.primary.main} ${theme.palette.background.paper}`,
+            },
+          })}
+        />
+      </ThemeProvider>
     </ThemeContext.Provider>
   );
 };
