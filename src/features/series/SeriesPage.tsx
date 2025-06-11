@@ -24,7 +24,7 @@ import {
 } from "../shared/components/Styled";
 
 // Styled Components
-const MoviesFlex = styled("div")(({ theme }) => ({
+const SeriesFlex = styled("div")(({ theme }) => ({
   display: "flex",
   gap: 16,
   [theme.breakpoints.down("md")]: {
@@ -33,13 +33,13 @@ const MoviesFlex = styled("div")(({ theme }) => ({
   },
 }));
 
-export default function MoviesPage() {
+export default function SeriesPage() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const {
-    data: movies,
+    data: series,
     isLoading,
     page,
     handlePageChange,
@@ -49,7 +49,7 @@ export default function MoviesPage() {
   } = usePaginatedQuery(useMoviesQuery, 0, 20, {
     sortField: "title",
     sortOrder: "asc",
-    isSeries: false,
+    isSeries: true,
     genres: [],
   });
 
@@ -77,7 +77,7 @@ export default function MoviesPage() {
   );
 
   return (
-    <MoviesFlex>
+    <SeriesFlex>
       {/* Filter toggle icon for mobile */}
       {isMobile && (
         <MobileFilterButton color="primary" onClick={() => setSidebarOpen(true)}>
@@ -97,16 +97,16 @@ export default function MoviesPage() {
       {/* Movies Section */}
       <MainContent>
         <CenteredText>
-          <Typography variant="h3">Movies</Typography>
+          <Typography variant="h3">Series</Typography>
         </CenteredText>
         {isLoading ? (
           <Spinner />
         ) : (
           <>
-            <CardGrid container>{movies?.content.map((movie) => <MovieCard key={movie.id} movie={movie} />)}</CardGrid>
+            <CardGrid container>{series?.content.map((movie) => <MovieCard key={movie.id} movie={movie} />)}</CardGrid>
             <CenteredText>
               <Pagination
-                count={movies?.totalPages || 1}
+                count={series?.totalPages || 1}
                 page={page + 1}
                 onChange={(_, value) => handlePageChange(null, value - 1)}
                 color="primary"
@@ -115,6 +115,6 @@ export default function MoviesPage() {
           </>
         )}
       </MainContent>
-    </MoviesFlex>
+    </SeriesFlex>
   );
 }

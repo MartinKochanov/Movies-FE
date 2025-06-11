@@ -97,7 +97,9 @@ export default function NavigationBar() {
             <Button component={Link} to={"/movies"} color="primary">
               Movies
             </Button>
-            <Button color="primary">Series</Button>
+            <Button component={Link} to={"/series"} color="primary">
+              Series
+            </Button>
             <ToggleButton onClick={toggleTheme}>
               {theme === "light" ? <Brightness4 color="primary" /> : <Brightness2 color="primary" />}
             </ToggleButton>
@@ -120,7 +122,7 @@ export default function NavigationBar() {
           <ListItemButton component={Link} to={"/movies"}>
             <ListItemText primary="Movies" />
           </ListItemButton>
-          <ListItemButton>
+          <ListItemButton component={Link} to={"/series"}>
             <ListItemText primary="Series" />
           </ListItemButton>
         </List>

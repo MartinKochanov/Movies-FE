@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 
 import Footer from "../features/shared/components/Footer";
 import NavigationBar from "../features/shared/components/NavigationBar";
+import ScrollToTop from "../features/shared/components/ScrollToTop";
 
 // Styled components
 const StyledMain = styled(Box)(({ theme }) => ({
@@ -17,6 +18,7 @@ const BaseLayout = () => {
     <>
       <CssBaseline />
       <NavigationBar />
+      <ScrollToTop />
       <StyledMain>
         <Outlet />
       </StyledMain>
