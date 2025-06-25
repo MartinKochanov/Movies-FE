@@ -95,6 +95,17 @@ const CustomThemeProvider = ({ children }: PropsWithChildren) => {
               scrollbarWidth: "thin",
               scrollbarColor: `${theme.palette.primary.main} ${theme.palette.background.paper}`,
             },
+            [`.MuiInputBase-input:-webkit-autofill, 
+              .MuiOutlinedInput-input:-webkit-autofill, 
+              input:-webkit-autofill, 
+              .MuiInputBase-input.MuiOutlinedInput-input:-webkit-autofill`]: {
+              WebkitBoxShadow: `0 0 0 1000px ${theme.palette.background.paper} inset`,
+              boxShadow: `0 0 0 1000px ${theme.palette.background.paper} inset`,
+              WebkitTextFillColor: theme.palette.text.primary,
+              caretColor: theme.palette.text.primary,
+              borderRadius: "inherit",
+              transition: "background-color 5000s ease-in-out 0s",
+            },
           })}
         />
       </ThemeProvider>

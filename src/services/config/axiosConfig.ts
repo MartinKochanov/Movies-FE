@@ -11,4 +11,17 @@ const config: AxiosRequestConfig = {
 
 const instance = axios.create(config);
 
+instance.interceptors.request.use(
+  (request) => {
+    const token = localStorage.getItem("auth");
+    if (token) {
+      request.headers.Authorization = `Bearer ${token}`;
+    }
+    return request;
+  },
+  (error) => {
+    console.error("Request error:", error);
+    return Promise.reject(error);
+  }
+);
 export default instance;
