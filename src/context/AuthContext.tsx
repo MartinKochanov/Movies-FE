@@ -1,10 +1,11 @@
 import { AxiosError } from "axios";
 
-import { type PropsWithChildren, createContext, useCallback, useContext, useState } from "react";
+import { type PropsWithChildren, createContext, useCallback, useContext, useEffect, useState } from "react";
 
 import { useLogin } from "../hooks/user/useLoginMutation";
+import { useMeQuery } from "../hooks/user/useMeQuery";
 import { useRegister } from "../hooks/user/useRegisterMutation";
-import type { LoginCredentials, RegisterCredentials, User } from "../types/User";
+import { type LoginCredentials, type RegisterCredentials, type User, UserRole } from "../types/User";
 
 type ContextType = {
   authError: string | undefined;
@@ -17,6 +18,9 @@ type ContextType = {
   isSigningUp: boolean;
   user: User | undefined;
   setCurrentUserInfo: (user: User | undefined) => void;
+  isAdmin: boolean;
+  isSuperAdmin: boolean;
+  isClient: boolean;
 };
 
 const AuthContext = createContext<ContextType | undefined>(undefined);
@@ -37,6 +41,13 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const { mutateAsync: login, isPending: isLogingIn } = useLogin();
   const { mutateAsync: register, isPending: isSigningUp } = useRegister();
+  const { data: me, isSuccess } = useMeQuery(!!auth);
+
+  useEffect(() => {
+    if (isSuccess && me) {
+      setUser(me);
+    }
+  }, [isSuccess, me]);
 
   const loginSubmitHandler = async (values: LoginCredentials) => {
     try {
@@ -69,13 +80,20 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   const logOutSubmitHandler = () => {
-    setAuth(undefined);
     localStorage.removeItem("auth");
+    setTimeout(() => {
+      setAuth(undefined);
+      setUser(undefined);
+    }, 100);
   };
 
   const setCurrentUserInfo = useCallback((user: User | undefined) => {
     setUser(user);
   }, []);
+
+  const isAdmin = user?.role === UserRole.ADMIN;
+  const isSuperAdmin = user?.role === UserRole.SUPER_ADMIN;
+  const isClient = user?.role === UserRole.CLIENT;
 
   const values: ContextType = {
     authError,
@@ -88,6 +106,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     isSigningUp,
     user,
     setCurrentUserInfo,
+    isAdmin,
+    isSuperAdmin,
+    isClient,
   };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;

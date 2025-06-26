@@ -10,3 +10,8 @@ export const login = async (credentials: LoginCredentials) => {
 export const register = async (credentials: RegisterCredentials) => {
   await instance.post<void>(userEndpoints.register(), credentials);
 };
+
+export const me = async () => {
+  const { data } = await instance.get(userEndpoints.me());
+  return data;
+};

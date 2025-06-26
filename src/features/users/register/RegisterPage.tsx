@@ -4,15 +4,17 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Box, Button, Paper, TextField, Typography, styled, useTheme } from "@mui/material";
 import { red } from "@mui/material/colors";
 import { type SubmitHandler, useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 import { useState } from "react";
 
 import { useAuth } from "../../../context/AuthContext";
-import schema from "./loginSchema";
+import schema from "./registerSchema";
 
-const LoginRoot = styled(Box)(({ theme }) => ({
+type FormFields = z.infer<typeof schema>;
+
+const RegisterRoot = styled(Box)(({ theme }) => ({
   minHeight: "100vh",
   display: "flex",
   flexDirection: "column",
@@ -21,7 +23,7 @@ const LoginRoot = styled(Box)(({ theme }) => ({
   background: theme.palette.background.default,
 }));
 
-const LoginPaper = styled(Paper)(({ theme }) => ({
+const RegisterPaper = styled(Paper)(({ theme }) => ({
   width: "100%",
   maxWidth: 400,
   borderRadius: theme.spacing(2),
@@ -47,7 +49,7 @@ const PasswordToggle = styled(Button)(() => ({
   right: 10,
 }));
 
-const SignUpLink = styled(Link)(({ theme }) => ({
+const SignInLink = styled(Link)(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
   gap: theme.spacing(1),
@@ -56,17 +58,14 @@ const SignUpLink = styled(Link)(({ theme }) => ({
   color: theme.palette.text.primary,
 }));
 
-type FormFields = z.infer<typeof schema>;
-
-const LoginPage = () => {
+const RegisterPage = () => {
   const theme = useTheme();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [visible, setVisible] = useState<boolean>(false);
   const handleVisibleCLick = () => setVisible((v) => !v);
 
-  const { loginSubmitHandler, authError, isLogingIn } = useAuth();
+  const { registerSubmitHandler, registrationError, isSigningUp } = useAuth();
 
   const {
     register,
@@ -76,21 +75,18 @@ const LoginPage = () => {
     resolver: zodResolver(schema),
   });
 
-  const searchParams = new URLSearchParams(location.search);
-  const redirectTo = searchParams.get("redirectTo") || "/";
-
-  const onSumbit: SubmitHandler<FormFields> = async (data) => {
-    const success = await loginSubmitHandler(data);
-    if (success) {
-      navigate(redirectTo, { replace: true });
+  const onSubmit: SubmitHandler<FormFields> = async (data) => {
+    const registered = await registerSubmitHandler(data);
+    if (registered) {
+      navigate("/sign-in");
     }
   };
 
   return (
-    <LoginRoot>
-      <LoginPaper>
+    <RegisterRoot>
+      <RegisterPaper>
         <form
-          onSubmit={handleSubmit(onSumbit)}
+          onSubmit={handleSubmit(onSubmit)}
           style={{
             width: "100%",
             display: "flex",
@@ -99,21 +95,39 @@ const LoginPage = () => {
           }}
         >
           <Typography variant="h4" align="center" gutterBottom sx={{ fontWeight: "bold" }}>
-            Welcome Back
+            Welcome
           </Typography>
           <Typography variant="h5" align="center" gutterBottom sx={{ marginBottom: 4 }}>
-            Sign In
+            Sign Up
           </Typography>
-          {authError && (
+          {registrationError && (
             <Typography variant="body1" color={red[400]}>
-              {authError}
+              {registrationError}
             </Typography>
           )}
           <TextField
             fullWidth
-            label="Email Address"
+            label="First Name"
             variant="outlined"
-            color="primary"
+            margin="normal"
+            {...register("firstName")}
+            error={!!errors.firstName}
+            helperText={errors.firstName?.message}
+          />
+          <TextField
+            fullWidth
+            label="Last Name"
+            variant="outlined"
+            margin="normal"
+            {...register("lastName")}
+            error={!!errors.lastName}
+            helperText={errors.lastName?.message}
+          />
+          <TextField
+            fullWidth
+            label="Email Address"
+            type="email"
+            variant="outlined"
             margin="normal"
             {...register("email")}
             error={!!errors.email}
@@ -123,7 +137,6 @@ const LoginPage = () => {
             <TextField
               fullWidth
               label="Password"
-              color="primary"
               type={visible ? "text" : "password"}
               variant="outlined"
               margin="normal"
@@ -135,28 +148,38 @@ const LoginPage = () => {
               {visible ? <VisibilityOffIcon color="primary" /> : <RemoveRedEyeIcon color="primary" />}
             </PasswordToggle>
           </PasswordBox>
+          <TextField
+            fullWidth
+            label="Repeat Password"
+            type={visible ? "text" : "password"}
+            variant="outlined"
+            margin="normal"
+            {...register("repeatPassword")}
+            error={!!errors.repeatPassword}
+            helperText={errors.repeatPassword?.message}
+          />
           <Button
-            disabled={isLogingIn}
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
             sx={{ marginTop: 2, padding: 1 }}
+            type="submit"
+            disabled={isSigningUp}
           >
-            {isLogingIn ? "Signing In" : "Sign In"}
+            {isSigningUp ? "Signing Up" : "Sign Up"}
           </Button>
           <Typography variant="body2" align="center" sx={{ marginTop: 2 }}>
-            <SignUpLink to={"/sign-up"}>
-              <Typography variant="body2">Don't have an account?</Typography>
+            <SignInLink to="/sign-in">
+              <Typography variant="body2">Already have an account?</Typography>
               <Typography variant="body2" color={theme.palette.primary.main}>
-                Sign Up
+                Sign In
               </Typography>
-            </SignUpLink>
+            </SignInLink>
           </Typography>
         </form>
-      </LoginPaper>
-    </LoginRoot>
+      </RegisterPaper>
+    </RegisterRoot>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

@@ -12,10 +12,12 @@ import {
   Typography,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
+import { useAuth } from "../../../context/AuthContext";
 import { useTheme } from "../../../context/ThemeContext";
 import { Theme } from "../../../types/Shared";
 
@@ -57,13 +59,15 @@ const DesktopButtons = styled(List)(({ theme }) => ({
   display: "flex",
   gap: theme.spacing(2),
   "@media (hover: none) and (pointer: coarse)": {
-    display: "none", // Hide on touch devices
+    display: "none",
   },
 }));
 
 export default function NavigationBar() {
+  const { auth, logOutSubmitHandler } = useAuth();
   const [opacity, setOpacity] = useState(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const navigate = useNavigate();
 
   const { toggleTheme, theme } = useTheme();
 
@@ -85,6 +89,12 @@ export default function NavigationBar() {
     setDrawerOpen(!drawerOpen);
   };
 
+  const handleLogout = useCallback(() => {
+    logOutSubmitHandler();
+    navigate("/sign-in", { replace: true });
+    toast.success("Logged out successfully");
+  }, [logOutSubmitHandler, navigate]);
+
   return (
     <>
       <StyledAppBar opacity={opacity}>
@@ -100,6 +110,22 @@ export default function NavigationBar() {
             <Button component={Link} to={"/series"} color="primary">
               Series
             </Button>
+            {!auth ? (
+              <>
+                <Button component={Link} to={"/sign-in"} color="primary">
+                  Sign-In
+                </Button>
+                <Button component={Link} to={"/sign-up"} color="primary">
+                  Sign-up
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button onClick={handleLogout} color="primary">
+                  Sign-Out
+                </Button>
+              </>
+            )}
             <ToggleButton onClick={toggleTheme}>
               {theme === "light" ? <Brightness4 color="primary" /> : <Brightness2 color="primary" />}
             </ToggleButton>
@@ -125,6 +151,25 @@ export default function NavigationBar() {
           <ListItemButton component={Link} to={"/series"}>
             <ListItemText primary="Series" />
           </ListItemButton>
+          {!auth ? (
+            <>
+              <ListItemButton component={Link} to={"/sign-in"} onClick={toggleDrawer}>
+                <ListItemText primary="Sign-In" />
+              </ListItemButton>
+              <ListItemButton component={Link} to={"/sign-up"} onClick={toggleDrawer}>
+                <ListItemText primary="Sign-Up" />
+              </ListItemButton>
+            </>
+          ) : (
+            <ListItemButton
+              onClick={() => {
+                handleLogout();
+                toggleDrawer();
+              }}
+            >
+              <ListItemText primary="Sign-Out" />
+            </ListItemButton>
+          )}
         </List>
       </Drawer>
     </>
