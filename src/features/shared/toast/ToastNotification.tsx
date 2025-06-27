@@ -1,7 +1,12 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { useTheme } from "../../../context/ThemeContext";
+import { Theme } from "../../../types/Shared";
+
 const ToastNotification = () => {
+  const { theme } = useTheme();
+
   return (
     <ToastContainer
       position="top-right"
@@ -13,7 +18,7 @@ const ToastNotification = () => {
       pauseOnFocusLoss
       draggable
       pauseOnHover
-      theme="dark"
+      theme={theme === Theme.DARK ? "dark" : "light"}
     />
   );
 };
