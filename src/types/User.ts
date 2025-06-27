@@ -24,7 +24,7 @@ export type User = {
 };
 
 export enum UserRole {
-  CLIENT,
-  ADMIN,
-  SUPER_ADMIN,
+  CLIENT = "CLIENT",
+  ADMIN = "ADMIN",
+  SUPER_ADMIN = "SUPER_ADMIN",
 }

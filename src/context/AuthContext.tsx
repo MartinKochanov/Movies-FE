@@ -5,6 +5,7 @@ import { type PropsWithChildren, createContext, useCallback, useContext, useEffe
 import { useLogin } from "../hooks/user/useLoginMutation";
 import { useMeQuery } from "../hooks/user/useMeQuery";
 import { useRegister } from "../hooks/user/useRegisterMutation";
+import { queryClient } from "../services/config/queryClient";
 import { type LoginCredentials, type RegisterCredentials, type User, UserRole } from "../types/User";
 
 type ContextType = {
@@ -47,7 +48,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     if (isSuccess && me) {
       setUser(me);
     }
-  }, [isSuccess, me]);
+  }, [isSuccess, me, auth]);
 
   const loginSubmitHandler = async (values: LoginCredentials) => {
     try {
@@ -81,6 +82,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const logOutSubmitHandler = () => {
     localStorage.removeItem("auth");
+    queryClient.removeQueries({ queryKey: ["me"] });
     setTimeout(() => {
       setAuth(undefined);
       setUser(undefined);
