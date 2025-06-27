@@ -13,7 +13,7 @@ import TrailerModal from "../shared/components/TrailerModal";
 // Styled Components
 const DetailsContainer = styled(Paper)(({ theme }) => ({
   margin: `${theme.spacing(10)} auto`,
-  maxWidth: 1400,
+  maxWidth: 1200,
   padding: theme.spacing(4),
   background: theme.palette.background.paper,
   borderRadius: theme.spacing(3),
