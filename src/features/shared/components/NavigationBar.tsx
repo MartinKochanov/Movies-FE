@@ -145,10 +145,10 @@ export default function NavigationBar() {
           <ListItemButton component={Link} to={"/"} onClick={toggleDrawer}>
             <ListItemText primary="Home" />
           </ListItemButton>
-          <ListItemButton component={Link} to={"/movies"}>
+          <ListItemButton component={Link} to={"/movies"} onClick={toggleDrawer}>
             <ListItemText primary="Movies" />
           </ListItemButton>
-          <ListItemButton component={Link} to={"/series"}>
+          <ListItemButton component={Link} to={"/series"} onClick={toggleDrawer}>
             <ListItemText primary="Series" />
           </ListItemButton>
           {!auth ? (
