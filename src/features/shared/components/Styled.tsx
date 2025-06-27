@@ -124,3 +124,17 @@ export const DrawerClearButton = styled(Button)(({ theme }) => ({
     marginLeft: 8,
   },
 }));
+
+export const PlayButton = styled(IconButton)(({ theme }) => ({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.common.white,
+  zIndex: 10,
+  transition: "opacity 0.3s ease",
+  "&:hover": {
+    backgroundColor: theme.palette.primary.dark,
+  },
+}));

@@ -1,4 +1,4 @@
-import type { Movie } from "../../types/Movie";
+import type { Movie, MovieDetails } from "../../types/Movie";
 import type { Page } from "../../types/Shared";
 import instance from "../config/axiosConfig";
 import { moviesEndpoints } from "./moviesEndpoints";
@@ -35,5 +35,10 @@ export const getMovies = async (
     },
   });
 
+  return response.data;
+};
+
+export const getMovieById = async (id: string) => {
+  const response = await instance.get<MovieDetails>(moviesEndpoints.getById(id));
   return response.data;
 };

@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import HomePage from "../features/movies/HomePage";
+import MoviesDetails from "../features/movies/MoviesDetails";
 import MoviesPage from "../features/movies/MoviesPage";
 import SeriesPage from "../features/series/SeriesPage";
 import LoginPage from "../features/users/login/LoginPage";
@@ -30,12 +31,8 @@ export const appRouter = createBrowserRouter([
         element: <ProtectedRoute />,
         children: [
           {
-            path: "/movies",
-            element: <MoviesPage />,
-          },
-          {
-            path: "/series",
-            element: <SeriesPage />,
+            path: "/movies/:id",
+            element: <MoviesDetails />,
           },
         ],
       },
@@ -43,6 +40,14 @@ export const appRouter = createBrowserRouter([
         path: "/",
         element: <HomePage />,
         index: true,
+      },
+      {
+        path: "/movies",
+        element: <MoviesPage />,
+      },
+      {
+        path: "/series",
+        element: <SeriesPage />,
       },
     ],
   },

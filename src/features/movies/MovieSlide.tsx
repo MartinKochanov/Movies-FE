@@ -1,5 +1,6 @@
 import { FiberManualRecord } from "@mui/icons-material";
 import { Box, Button, Typography, alpha, styled } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 import { useState } from "react";
 
@@ -122,6 +123,11 @@ const GenreDot = styled(FiberManualRecord)({
 
 export default function MovieSlide({ movie }: MovieSlideProps) {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleMoreInfoClick = () => {
+    navigate(`/movies/${movie.id}`);
+  };
 
   const toggleModal = () => setOpen(!open);
 
@@ -145,7 +151,7 @@ export default function MovieSlide({ movie }: MovieSlideProps) {
           <WatchButton variant="contained" color="primary" size="large" onClick={toggleModal}>
             ▶ Watch Trailer
           </WatchButton>
-          <InfoButton variant="outlined" color="inherit">
+          <InfoButton variant="outlined" color="inherit" onClick={handleMoreInfoClick}>
             ⓘ More Info
           </InfoButton>
         </ButtonGroup>

@@ -54,3 +54,35 @@ export enum Genre {
   DARK_COMEDY = "Dark_Comedy",
   MOCKUMENTARY = "Mockumentary",
 }
+
+export type MovieDetails = {
+  id: string;
+  title: string;
+  duration: number;
+  releaseYear: number;
+  genres: Genre[];
+  plot: string;
+  tagline: string;
+  imageUrl: string;
+  trailerUrl: string;
+  filmStudio: string;
+  basedOn: string;
+  series: boolean;
+  cast: CastMember[];
+  directedBy: CastMember[];
+  producers: CastMember[];
+  writers: CastMember[];
+};
+
+export type CastMember = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  imageUrl: string;
+  role: Role;
+};
+
+export type Role = {
+  id: string;
+  name: string;
+};
