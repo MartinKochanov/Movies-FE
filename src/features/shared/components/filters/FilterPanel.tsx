@@ -4,9 +4,6 @@ import { styled } from "@mui/material/styles";
 import { useState } from "react";
 
 import GenreFilter from "./GenreFilter";
-import ReleaseYearFilter from "./ReleaseYearFilter";
-import SearchFilter from "./SearchFilter";
-import SortFilter from "./SortFilter";
 
 const FilterContainer = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -45,14 +42,8 @@ export default function FilterPanel({
   selectedGenres,
   onGenreClick,
   searchTerm,
-  onSearchChange,
   releaseYear,
-  onReleaseYearChange,
-  sortField,
-  sortOrder,
-  onSortChange,
   onClearFilters,
-  isSeries = false,
 }: FilterPanelProps) {
   const [expandedSections, setExpandedSections] = useState({
     search: true,
@@ -72,22 +63,6 @@ export default function FilterPanel({
 
   return (
     <FilterContainer>
-      {/* Search Section */}
-      <CollapsibleSection>
-        <FilterTitle onClick={() => toggleSection("search")} sx={{ cursor: "pointer", userSelect: "none" }}>
-          🔍 Search
-        </FilterTitle>
-        <Collapse in={expandedSections.search}>
-          <SearchFilter
-            value={searchTerm}
-            onChange={onSearchChange}
-            placeholder={`Search ${isSeries ? "series" : "movies"}...`}
-          />
-        </Collapse>
-      </CollapsibleSection>
-
-      <Divider />
-
       {/* Genres Section */}
       <CollapsibleSection>
         <FilterTitle onClick={() => toggleSection("genres")} sx={{ cursor: "pointer", userSelect: "none" }}>
@@ -98,31 +73,6 @@ export default function FilterPanel({
         </Collapse>
       </CollapsibleSection>
 
-      <Divider />
-
-      {/* Release Year Section */}
-      <CollapsibleSection>
-        <FilterTitle onClick={() => toggleSection("year")} sx={{ cursor: "pointer", userSelect: "none" }}>
-          📅 Release Year {releaseYear && `(${releaseYear})`}
-        </FilterTitle>
-        <Collapse in={expandedSections.year}>
-          <ReleaseYearFilter value={releaseYear} onChange={onReleaseYearChange} />
-        </Collapse>
-      </CollapsibleSection>
-
-      <Divider />
-
-      {/* Sort Section */}
-      <CollapsibleSection>
-        <FilterTitle onClick={() => toggleSection("sort")} sx={{ cursor: "pointer", userSelect: "none" }}>
-          🔄 Sort
-        </FilterTitle>
-        <Collapse in={expandedSections.sort}>
-          <SortFilter sortField={sortField} sortOrder={sortOrder} onSortChange={onSortChange} />
-        </Collapse>
-      </CollapsibleSection>
-
-      {/* Clear Filters */}
       {hasActiveFilters && (
         <>
           <Divider />
