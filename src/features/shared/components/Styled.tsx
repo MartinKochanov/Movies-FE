@@ -138,3 +138,9 @@ export const PlayButton = styled(IconButton)(({ theme }) => ({
     backgroundColor: theme.palette.primary.dark,
   },
 }));
+
+export const StyledMain = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.background.default,
+  color: theme.palette.text.primary,
+  minHeight: "calc(100vh - 64px)",
+}));
