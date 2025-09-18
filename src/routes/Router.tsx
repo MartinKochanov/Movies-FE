@@ -4,9 +4,12 @@ import HomePage from "../features/movies/HomePage";
 import MoviesDetails from "../features/movies/MoviesDetails";
 import MoviesPage from "../features/movies/MoviesPage";
 import SeriesPage from "../features/series/SeriesPage";
+import { Dashboard } from "../features/users/admin/Dashboard";
 import LoginPage from "../features/users/login/LoginPage";
 import RegisterPage from "../features/users/register/RegisterPage";
+import AdminLayout from "../layouts/AdminLayout";
 import BaseLayout from "../layouts/BaseLayout";
+import AdminRoute from "./guards/AdminRoute";
 import ProtectedRoute from "./guards/ProtectedRoute";
 import PublicRoute from "./guards/PublicRoute";
 
@@ -48,6 +51,20 @@ export const appRouter = createBrowserRouter([
       {
         path: "/series",
         element: <SeriesPage />,
+      },
+    ],
+  },
+  {
+    element: <AdminLayout />,
+    children: [
+      {
+        element: <AdminRoute />,
+        children: [
+          {
+            path: "/admin",
+            element: <Dashboard />,
+          },
+        ],
       },
     ],
   },
