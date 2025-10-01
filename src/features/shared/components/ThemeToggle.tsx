@@ -1,4 +1,4 @@
-import { Brightness2, Brightness4 } from "@mui/icons-material";
+import { Brightness2, Sunny } from "@mui/icons-material";
 import { Box, IconButton, ListItemButton } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
@@ -7,10 +7,10 @@ import { useCallback } from "react";
 import { useTheme } from "../../../context/ThemeContext";
 import { Theme } from "../../../types/Shared";
 
-// Custom animated theme slider (no background icons)
+// Custom animated theme slider
 const ThemeSlider = styled(Box)<{ $isDark: boolean }>(({ theme, $isDark }) => ({
   position: "relative",
-  width: 72,
+  width: 58,
   height: 32,
   borderRadius: 32,
   backgroundColor: $isDark ? theme.palette.grey[800] : theme.palette.grey[300],
@@ -31,7 +31,7 @@ const SliderThumb = styled(Box)<{ $isDark: boolean }>(({ theme, $isDark }) => ({
   borderRadius: "50%",
   backgroundColor: theme.palette.background.paper,
   boxShadow: theme.shadows[2],
-  transform: `translateX(${$isDark ? 40 : 0}px)`,
+  transform: `translateX(${$isDark ? 25 : 0}px)`,
   transition: "transform 200ms ease",
   display: "flex",
   alignItems: "center",
@@ -78,7 +78,7 @@ export default function ThemeToggle({ variant = "slider", className }: ThemeTogg
   if (variant === "simple") {
     return (
       <SimpleToggleButton onClick={handleThemeToggle} className={className}>
-        {isDark ? <Brightness2 color="primary" /> : <Brightness4 color="primary" />}
+        {isDark ? <Brightness2 color="primary" /> : <Sunny color="primary" />}
       </SimpleToggleButton>
     );
   }
@@ -86,7 +86,7 @@ export default function ThemeToggle({ variant = "slider", className }: ThemeTogg
   if (variant === "mobile") {
     return (
       <MobileToggleButton onClick={handleThemeToggle} className={className}>
-        {isDark ? <Brightness4 /> : <Brightness2 />}
+        {isDark ? <Brightness2 /> : <Sunny />}
       </MobileToggleButton>
     );
   }
@@ -96,7 +96,7 @@ export default function ThemeToggle({ variant = "slider", className }: ThemeTogg
     <StyledListItemButton sx={{ px: 2, justifyContent: "flex-start" }} disableRipple onClick={handleThemeToggle}>
       <ThemeSlider $isDark={isDark}>
         <SliderThumb $isDark={isDark}>
-          {isDark ? <Brightness2 fontSize="small" color="primary" /> : <Brightness4 fontSize="small" color="primary" />}
+          {isDark ? <Brightness2 fontSize="small" color="primary" /> : <Sunny fontSize="small" color="primary" />}
         </SliderThumb>
       </ThemeSlider>
     </StyledListItemButton>

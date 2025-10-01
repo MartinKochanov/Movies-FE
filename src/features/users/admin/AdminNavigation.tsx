@@ -118,8 +118,8 @@ export default function AdminNavigation() {
       <Box sx={{ mt: "auto" }}>
         {" "}
         {/* Theme toggle at footer (always bottom) */}
-        <List>
-          <ThemeToggle variant="slider" />
+        <List sx={collapsed ? { display: "flex", flexDirection: "column", alignItems: "center" } : {}}>
+          <ThemeToggle variant={collapsed ? "simple" : "slider"} />
           {/* Collapse/Expand toggle at absolute bottom */}
           <Divider sx={{ mb: 1 }} />
 

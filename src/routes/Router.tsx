@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import HomePage from "../features/movies/HomePage";
 import MoviesDetails from "../features/movies/MoviesDetails";
 import MoviesPage from "../features/movies/MoviesPage";
+import MoviesTable from "../features/movies/MoviesTable";
 import SeriesPage from "../features/series/SeriesPage";
 import { Dashboard } from "../features/users/admin/Dashboard";
 import LoginPage from "../features/users/login/LoginPage";
@@ -63,6 +64,10 @@ export const appRouter = createBrowserRouter([
           {
             path: "/admin",
             element: <Dashboard />,
+          },
+          {
+            path: "/admin/movies",
+            element: <MoviesTable />,
           },
         ],
       },
